@@ -10,7 +10,7 @@ public class TestController {
 	@RequestMapping("/getCharacterName")
 	public String getCharacterName() {
 		List<Ability> robab = new ArrayList<Ability>();
-		Character zob = new Character("Zob", 100, "url", "Big Strong", robab);
+		Character zob = new Character("Thor", 100, "url", "Big Strong", robab);
 		return zob.getName();
 	}
 	
