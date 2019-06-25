@@ -7,6 +7,7 @@ import java.util.*;
 import com.imaginationgame.demo.Ability;
 @RestController
 public class TestController {
+
     @RequestMapping("/")
     public String index() {
  		    List<Ability> bobab = new ArrayList<Ability>();
@@ -42,4 +43,5 @@ public class TestController {
     	return "Gwlee";
         
     }
+
 }
