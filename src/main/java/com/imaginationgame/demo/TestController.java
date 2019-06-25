@@ -7,7 +7,14 @@ import java.util.*;
 import com.imaginationgame.demo.Ability;
 @RestController
 public class TestController {
-
+	@RequestMapping("/getCharacterName")
+	public String getCharacterName() {
+		List<Ability> robab = new ArrayList<Ability>();
+		Character zob = new Character("Zob", 100, "url", "Big Strong", robab);
+		return zob.getName();
+	}
+	
+	
     @RequestMapping("/")
     public String index() {
  		    List<Ability> bobab = new ArrayList<Ability>();
