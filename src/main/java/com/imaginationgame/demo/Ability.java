@@ -6,6 +6,9 @@ public class Ability  {
     private String name;
     private String description;
     
+    public Ability() {
+    	
+    }
     public Ability(int aDmg, String aName, String aDescription){
         dmg = aDmg;
         name = aName;

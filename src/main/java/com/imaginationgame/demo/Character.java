@@ -7,6 +7,9 @@ public class Character {
     private String img;
     private String description;
     
+    public Character() {
+    	
+    }
     public Character(String aName, int aHealth, String aImg, String aDescription, List<Ability> aListofab) {
         name = aName;
         health = aHealth;
@@ -44,6 +47,7 @@ public class Character {
     public void setListofab(List<Ability>aListofab){
         listofab = aListofab;
     }
+    
     public void sayName() {
         System.out.println(name);
     }

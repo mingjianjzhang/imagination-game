@@ -50,5 +50,25 @@ public class TestController {
     	return "Gwlee";
         
     }
+    private Character retChar(String title, int hP, String image, String charDesc, int dmg ,String powr, String abiDesc) {
+    	Character choice = new Character();
+    	choice.setName(title);
+    	choice.setHealth(hP);
+    	choice.setImg(image);
+    	choice.setDescription(charDesc);
+    	Ability newAbility = retAbi(dmg, powr, abiDesc);
+    	List<Ability>listOfAb = new ArrayList<Ability>();
+    	listOfAb.add(newAbility);
+    	choice.setListofab(listOfAb);
+    	return choice;
+    }
+    private Ability retAbi(int damage, String power, String powerDesc) {
+    	Ability choose = new Ability();
+    	choose.setDmg(damage);
+    	choose.setName(power);
+    	choose.setDescription(powerDesc);
+    	return choose;
+    }
+    }
 
-}
+
