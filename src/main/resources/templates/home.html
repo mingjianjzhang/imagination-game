@@ -8,29 +8,90 @@
         src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
         crossorigin="anonymous"></script>
+
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 <script>
+
 $(document).ready(function(){
-    $('button').click(function(){
-        $.get("/getCharacterName", function(data, status){
-            $('.character-container').text(data);
-        });
+    $('.create-character-form').on("submit", function(e){
+         e.preventDefault();
+         $.ajax({
+           type: "POST",
+           url: "/createCharacter",
+           data: $(this).serialize(), // serializes the form's elements.
+           success: function(response) {
+               alert(response); // show response from the php script.
+           }
+         });
     });
-  // jQuery methods go here...
 });
+
+
 </script>
 <style>
 h1 {
     color: blue;
 }
 </style>
-<script>
-    console.log("hello guys");
-</script>
 <body>
 <h1>This is the Imagination Game</h1>
 <button>Create character</button>
 <div class="character-container">
-
+    <div class="row">
+        <div class="col s4">
+            <form class="create-character-form">
+                <div class="row">
+                    <h4> Basic Character Information</h4>
+                    <div class="input-field col s6">
+                        <input id="character_name" name="character_name" type="text" class="validate">
+                        <label for="character_name">Character Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="character_health" name="character_health" type="text" class="validate">
+                        <label for="character_health">Character Health</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="image_url" name="image_url" type="text" class="validate">
+                        <label for="image_url">Character Image</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="description" name="description" class="materialize-textarea"></textarea>
+                        <label for="description">Character Description</label>
+                    </div>
+                </div>
+                <h4> Character Ability </h4>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="ability_name" name="ability_name" type="text" class="validate">
+                        <label for="ability_name">Ability Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="ability_damage" name="ability_damage" type="text" class="validate">
+                        <label for="ability_damage">Ability Damage</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea
+                                id="ability_description"
+                                name="ability_description"
+                                class="materialize-textarea"></textarea>
+                        <label for="ability_description">Ability Description</label>
+                    </div>
+                </div>
+                <button class="waves-effect waves-light btn" type="submit">Create Character</button>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
 </html>
