@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import sun.net.util.URLUtil;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 public class GameController {
@@ -20,7 +24,7 @@ public class GameController {
     @RequestMapping(value = "/createCharacter", method = RequestMethod.POST)
     @ResponseBody
     public List<String> createCharater(
-    		/*Character Name has to be longer than one character
+            /*Character Name has to be longer than one character
     		 * Hp can't be negative or 0 and has to be less than 1000
     		 * Ability name less than 20 chars.
     		 * Ability damage cant be negative

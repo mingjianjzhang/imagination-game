@@ -18,16 +18,26 @@
 <script>
 
 $(document).ready(function(){
+
+    const errorDisplay = document.querySelector('.error-display');
     $('.create-character-form').on("submit", function(e){
-         e.preventDefault();
-         $.ajax({
-           type: "POST",
-           url: "/createCharacter",
-           data: $(this).serialize(), // serializes the form's elements.
-           success: function(response) {
-               alert(response); // show response from the php script.
-           }
-         });
+        errorDisplay.innerHTML = '';
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "/createCharacter",
+            data: $(this).serialize(), // serializes the form's elements.
+            success: function(response) {
+                const fragment = document.createDocumentFragment();
+                response.forEach(errorMsg => {
+                    console.log(errorMsg);
+                    const messageLine = document.createElement('p');
+                    messageLine.innerHTML = errorMsg;
+                    fragment.appendChild(messageLine);
+                });
+                errorDisplay.innerHTML = fragment;
+            }
+        });
     });
 });
 
@@ -90,6 +100,9 @@ h1 {
                 </div>
                 <button class="waves-effect waves-light btn" type="submit">Create Character</button>
             </form>
+        </div>
+        <div class="col s4">
+            <div class="error-display"></div>
         </div>
     </div>
 </div>
