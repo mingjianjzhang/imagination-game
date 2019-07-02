@@ -1,5 +1,7 @@
 package com.imaginationgame.demo;
 import java.util.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,10 @@ import java.util.List;
 
 @Controller
 public class GameController {
+
+    @Autowired
+    private CharacterHelper characterHelper;
+
     @GetMapping("/home")
     public String home(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
         model.addAttribute("name", name);
@@ -54,5 +60,11 @@ public class GameController {
         System.out.println(errorList.toString());
         return errorList;
     }
-    
+
+    @RequestMapping(value = "/getCharacters", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Character> getCharacters() {
+        return characterHelper.getCharacters();
+    }
+
 }

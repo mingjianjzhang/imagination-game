@@ -7,14 +7,15 @@ import java.util.List;
 
 @Component
 public class CharacterHelper {
-    private static List<Character> characterList;
+    private static List<Character> characterList = new ArrayList<>();
 
 
     public CharacterHelper() {
         List<Ability> abilityList = new ArrayList<>();
         abilityList.add(new Ability(50, "AwesomeCool",
                 "Freezes enemy with utter coolness" ));
-        characterList.add(new Character("Josh", 50, null, "The Coolest Guy",
+        characterList.add(new Character("David Foster Wallace", 50,
+                "http://ecx.images-amazon.com/images/I/51zSpLTZcQL.jpg", "The Coolest Guy",
                 abilityList));
     }
 
@@ -23,6 +24,10 @@ public class CharacterHelper {
      */
     public void saveCharacter() {
 
+    }
+
+    public List<Character> getCharacters() {
+        return characterList;
     }
 
 }
