@@ -35,13 +35,16 @@ public class GameController {
     		 * Ability name less than 20 chars.
     		 * Ability damage cant be negative
     		 */
+    		
     		@RequestParam(name = "ability_description") String abiDesc,
     		@RequestParam(name ="description") String charDescription, 
     		@RequestParam(name = "ability_damage") int abilityDmg,
+    		@RequestParam(name = "image_url") String charImg,
     		@RequestParam(name ="ability_name") String abilityName,
     		@RequestParam(name="character_name") String characterName,
     		@RequestParam(name="character_health") int characterHP) {
     	List<String> errorList = new ArrayList<String>();
+    	
     	if(characterName.length() <= 1) {
     		errorList.add("Name is too short");
     	}
@@ -56,6 +59,10 @@ public class GameController {
     	}
     	if(errorList.size() == 0) {
     		errorList.add("u good buddy");
+    		Ability bruhMove = new Ability(abilityDmg, abilityName, abiDesc);
+    		List<Ability> bruh = new ArrayList<Ability>();
+    		bruh.add(bruhMove);
+    		Character zogber = new Character(characterName,characterHP, charImg, charDescription, bruh);
     	}
         System.out.println(errorList.toString());
         return errorList;

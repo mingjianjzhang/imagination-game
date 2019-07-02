@@ -23,7 +23,7 @@ public class CharacterHelper {
      * Adds a new character to characterList.
      */
     public void saveCharacter() {
-
+    	characterList.add()
     }
 
     public List<Character> getCharacters() {
