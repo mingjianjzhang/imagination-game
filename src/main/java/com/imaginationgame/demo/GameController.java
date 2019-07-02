@@ -54,6 +54,5 @@ public class GameController {
         System.out.println(errorList.toString());
         return errorList;
     }
-
-
+    
 }
