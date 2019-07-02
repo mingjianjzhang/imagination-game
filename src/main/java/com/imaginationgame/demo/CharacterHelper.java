@@ -22,8 +22,8 @@ public class CharacterHelper {
     /**
      * Adds a new character to characterList.
      */
-    public void saveCharacter() {
-    	characterList.add()
+    public void saveCharacter(Character character) {
+    	characterList.add(character);
     }
 
     public List<Character> getCharacters() {

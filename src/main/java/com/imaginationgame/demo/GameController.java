@@ -59,11 +59,13 @@ public class GameController {
     	}
     	if(errorList.size() == 0) {
     		errorList.add("u good buddy");
-    		Ability bruhMove = new Ability(abilityDmg, abilityName, abiDesc);
-    		List<Ability> bruh = new ArrayList<Ability>();
-    		bruh.add(bruhMove);
-    		Character zogber = new Character(characterName,characterHP, charImg, charDescription, bruh);
+    		Ability abilitty = new Ability(abilityDmg, abilityName, abiDesc);
+    		List<Ability> abiliity = new ArrayList<Ability>();
+    		abiliity.add(abilitty);
+    		Character inputChar = new Character(characterName,characterHP, charImg, charDescription, abiliity);
+    		characterHelper.saveCharacter(inputChar);
     	}
+    	
         System.out.println(errorList.toString());
         return errorList;
     }
