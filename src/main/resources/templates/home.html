@@ -16,28 +16,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
 <script>
-
 $(document).ready(function(){
-
-    $.get('/getCharacters', (data, status) => {
-        console.log(data);
-        const character = data[0];
-        $('.character-container').html(`
-            <div class="card">
-                <div class="card-image">
-                    <img src="${character.}}">
-                    <span class="card-title">Card Title</span>
-                </div>
-                <div class="card-content">
-                    <p>I am a very simple card. I am good at containing small bits of information.
-                        I am convenient because I require little markup to use effectively.</p>
-                </div>
-                <div class="card-action">
-                    <a href="#">This is a link</a>
-                </div>
-            </div>
-        `);
-    });
+    const characterList = document.querySelector(".character-panels");
+    getCharacters(characterList);
 
     const errorDisplay = document.querySelector('.error-display');
     $('.create-character-form').on("submit", function(e){
@@ -48,6 +29,9 @@ $(document).ready(function(){
             url: "/createCharacter",
             data: $(this).serialize(), // serializes the form's elements.
             success: function(response) {
+                if (response[0] == "u good buddy") {
+                    getCharacters(characterList);
+                }
                 const fragment = document.createDocumentFragment();
                 response.forEach(errorMsg => {
                     console.log(errorMsg);
@@ -59,21 +43,81 @@ $(document).ready(function(){
             }
         });
     });
-
-
 });
+
+function getCharacters(characterList) {
+    characterList.innerHTML = '';
+    $.get('/getCharacters', (data, status) => {
+        let characterHTML = '';
+        console.log(data);
+        data.forEach(character => {
+            const abilities = character.listofab;
+            let abilityHtml = "";
+            abilities.forEach(ability => {
+                abilityHtml += `
+                <ul class='ability'>
+                    <li>
+                        Name: ${ability.name}
+                    </li>
+                    <li>
+                        Damage: ${ability.dmg}
+                    </li>
+                    <li>
+                        Description: ${ability.description}
+                    </li>
+                </ul>
+                `;
+            });
+            abilityHtml += "</ul>";
+
+            characterHTML += `
+            <div class="col s4">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="${character.img}">
+                        <span class="card-title">${character.name}</span>
+                    </div>
+                    <div class="card-content">
+                        <p>${character.description}</p>
+                        <h4> Abilities </h4>
+                        ${abilityHtml}
+                    </div>
+                    <div class="card-action">
+                        <a href="#">This is a link</a>
+                    </div>
+                </div>
+            </div>
+            `;
+        });
+        characterList.innerHTML = characterHTML;
+    });
+}
+
 
 
 </script>
 <style>
 h1 {
     color: blue;
+    margin: 0 auto;
+}
+.card img{
+    width: 20em;
+    margin: 0 auto !important;
+}
+
+.ability ul li:first-child{
+    font-size: 1.3em;
 }
 </style>
 <body>
-<h1>This is the Imagination Game</h1>
-<button>Create character</button>
+<h1> Imagination Game </h1>
 <div class="character-container">
+    <div class="character-panels row">
+
+    </div>
+</div>
+<div class="character-form-container">
     <div class="row">
         <div class="col s4">
             <form class="create-character-form">
@@ -123,25 +167,13 @@ h1 {
                 <button class="waves-effect waves-light btn" type="submit">Create Character</button>
             </form>
         </div>
-        <div class="col s4">
+        <div class="col s8">
             <div class="error-display"></div>
-            <div class="character-container">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="images/sample-1.jpg">
-                        <span class="card-title">Card Title</span>
-                    </div>
-                    <div class="card-content">
-                        <p>I am a very simple card. I am good at containing small bits of information.
-                            I am convenient because I require little markup to use effectively.</p>
-                    </div>
-                    <div class="card-action">
-                        <a href="#">This is a link</a>
-                    </div>
-                </div>
+            <div class="character-list">
             </div>
         </div>
     </div>
 </div>
+
 </body>
 </html>
