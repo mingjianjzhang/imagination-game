@@ -75,5 +75,13 @@ public class GameController {
     public List<Character> getCharacters() {
         return characterHelper.getCharacters();
     }
-
+    @GetMapping("/getCharacterByName")
+    public Character getCharacterByName(List<Character> sampChar) {
+    	if(sampChar) {
+    		
+    	}
+    	
+    }
+//write a new function gitCharacter by name por favor The route should be /getCharacterByName
+    // function should be able to identify grab and return a character through its name 
 }
