@@ -29,5 +29,14 @@ public class CharacterHelper {
     public List<Character> getCharacters() {
         return characterList;
     }
+    public Character getCharacterLlamo(String charLlamo) {
+    	for(int i = 0; i < characterList.size(); i++) {
+    		if(characterList.get(i).getName().equals(charLlamo)) {
+    			return characterList.get(i);
+    		}
+    	}
+    		
+    	return null;
+    }
 
 }
