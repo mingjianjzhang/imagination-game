@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestBody;
 import sun.net.util.URLUtil;
 
 import java.util.Arrays;
@@ -29,45 +30,36 @@ public class GameController {
 
     @RequestMapping(value = "/createCharacter", method = RequestMethod.POST)
     @ResponseBody
-    public List<String> createCharater(
-            /*Character Name has to be longer than one character
-    		 * Hp can't be negative or 0 and has to be less than 1000
-    		 * Ability name less than 20 chars.
-    		 * Ability damage cant be negative
-    		 */
-    		
-    		@RequestParam(name = "ability_description") String abiDesc,
-    		@RequestParam(name ="description") String charDescription, 
-    		@RequestParam(name = "ability_damage") int abilityDmg,
-    		@RequestParam(name = "image_url") String charImg,
-    		@RequestParam(name ="ability_name") String abilityName,
-    		@RequestParam(name="character_name") String characterName,
-    		@RequestParam(name="character_health") int characterHP) {
+    public List<String> createCharacter(
+    		@RequestBody Character character
+    		){
     	List<String> errorList = new ArrayList<String>();
     	
-    	if(characterName.length() <= 1) {
+    	if(character.getName().length() <= 1) {
     		errorList.add("Name is too short");
     	}
-    	if(characterHP <= 0 || characterHP > 1000 ) {
+    	if(character.getHealth() <= 0 || character.getHealth() > 1000 ) {
     		errorList.add("Number error");
     	}
-    	if(abilityName.length() > 20) {
-    		errorList.add("Name is too long");
-    	}
-    	if(abilityDmg < 0) {
-    		errorList.add("Please add damage to your move");
+    	List<Ability> abilityList = character.getListofab();
+    	for(int i = 0; i < abilityList.size(); i++) {
+    		if(abilityList.get(i).getName().length() > 0) {
+    			errorList.add( abilityList.get(i).getName() + " is too long");
+    		}
+    		if(abilityList.get(i).getDmg() < 0) {
+    			errorList.add("Please add damage to " + abilityList.get(i).getName());
+    		}
     	}
     	if(errorList.size() == 0) {
     		errorList.add("u good buddy");
-    		Ability abilitty = new Ability(abilityDmg, abilityName, abiDesc);
-    		List<Ability> abiliity = new ArrayList<Ability>();
-    		abiliity.add(abilitty);
-    		Character inputChar = new Character(characterName,characterHP, charImg, charDescription, abiliity);
-    		characterHelper.saveCharacter(inputChar);
+    		characterHelper.saveCharacter(character);
     	}
+    	
     	
         System.out.println(errorList.toString());
         return errorList;
+    	
+    	
     }
 
     @RequestMapping(value = "/getCharacters", method = RequestMethod.GET)
@@ -83,6 +75,7 @@ public class GameController {
     	}
     	return character;
     }
+    
 //write a new function gitCharacter by name por favor The route should be /getCharacterByName
     // function should be able to identify grab and return a character through its name 
 }
