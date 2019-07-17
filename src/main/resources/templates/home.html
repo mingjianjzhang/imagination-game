@@ -21,6 +21,12 @@ $(document).ready(function(){
     getCharacters(characterList);
 
     const errorDisplay = document.querySelector('.error-display');
+
+    $('.add-ability').on("click", function(e){
+        e.preventDefault();
+        addAbilityForm();
+    });
+
     $('.create-character-form').on("submit", function(e){
         errorDisplay.innerHTML = '';
         e.preventDefault();
@@ -44,6 +50,36 @@ $(document).ready(function(){
         });
     });
 });
+
+function addAbilityForm(){
+    const abilityList = document.querySelector(".abilities-container");
+    const abilityFormHTMLString = `
+        <div class="ability-form col s6">
+            <h4> Character Ability </h4>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="ability_name" name="ability_name" type="text" class="validate">
+                    <label for="ability_name">Ability Name</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="ability_damage" name="ability_damage" type="text" class="validate">
+                    <label for="ability_damage">Ability Damage</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                <textarea
+                        id="ability_description"
+                        name="ability_description"
+                        class="materialize-textarea"></textarea>
+                    <label for="ability_description">Ability Description</label>
+                </div>
+            </div>
+        </div>
+    `
+    abilityList.innerHTML += abilityFormHTMLString;
+
+}
 
 function getCharacters(characterList) {
     characterList.innerHTML = '';
@@ -119,7 +155,7 @@ h1 {
 </div>
 <div class="character-form-container">
     <div class="row">
-        <div class="col s4">
+        <div class="col s6">
             <form class="create-character-form">
                 <div class="row">
                     <h4> Basic Character Information</h4>
@@ -144,30 +180,14 @@ h1 {
                         <label for="description">Character Description</label>
                     </div>
                 </div>
-                <h4> Character Ability </h4>
-                <div class="row">
-                    <div class="input-field col s6">
-                        <input id="ability_name" name="ability_name" type="text" class="validate">
-                        <label for="ability_name">Ability Name</label>
-                    </div>
-                    <div class="input-field col s6">
-                        <input id="ability_damage" name="ability_damage" type="text" class="validate">
-                        <label for="ability_damage">Ability Damage</label>
-                    </div>
+                <button class="waves-effect waves-light btn add-ability">Add Ability</button>
+                <div class="row abilities-container">
                 </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <textarea
-                                id="ability_description"
-                                name="ability_description"
-                                class="materialize-textarea"></textarea>
-                        <label for="ability_description">Ability Description</label>
-                    </div>
-                </div>
+
                 <button class="waves-effect waves-light btn" type="submit">Create Character</button>
             </form>
         </div>
-        <div class="col s8">
+        <div class="col s6">
             <div class="error-display"></div>
             <div class="character-list">
             </div>

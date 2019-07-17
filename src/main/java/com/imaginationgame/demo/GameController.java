@@ -31,8 +31,7 @@ public class GameController {
     @RequestMapping(value = "/createCharacter", method = RequestMethod.POST)
     @ResponseBody
     public List<String> createCharacter(
-    		@RequestBody Character character
-    		){
+    		@RequestBody Character character){
     	List<String> errorList = new ArrayList<String>();
     	
     	if(character.getName().length() <= 1) {
